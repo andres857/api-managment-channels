@@ -1,7 +1,7 @@
 const axios = require('axios')
-const { hostBroker , route , auth } = require('../config')
+const { hostBroker , route , auth } = require('../../config')
 
-function restartPlayers(client, room){
+function getPlayersByClient(client){
     return new Promise((resolve) => {
         axios.get(`${hostBroker}/${route}`, { auth })
         .then(function(response){
@@ -13,14 +13,6 @@ function restartPlayers(client, room){
                         playersfound.push(player)
                     }
                 });
-                axios.get(`${hostBroker}/api/v4/subscriptions/${playersfound}`, {auth})
-                    .then(
-                        function (response) {
-                            if (response.status === 200) {
-                                console.log(response);
-                            }
-                        }
-                    )
                 resolve(playersfound);
             }else{
                 console.log(response.status);
@@ -30,3 +22,12 @@ function restartPlayers(client, room){
         })
     })
 }
+
+module.exports = {
+    getPlayersByClient,
+}
+
+
+
+
+

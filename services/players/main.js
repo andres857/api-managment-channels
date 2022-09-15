@@ -1,7 +1,5 @@
- const serviceRestart = require ('./restartPlayer')
- const serviceStatus = require('./statusPlayer')
- const newStreaming = require('./newStreamingPlayer')
-
+const serviceRestart = require ('./globalActions')
+const serviceStatus = require('./actions')
 
 function optionsPlayer(options){
     const { restart, status, newstreaming } = options

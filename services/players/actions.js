@@ -1,5 +1,5 @@
 const axios = require('axios')
-const { hostBroker , route , auth } = require('../config')
+const { hostBroker , route , auth } = require('../../config')
 
 axios.get(`${hostBroker}/${route}`, { auth })
     .then(function(response){
@@ -12,10 +12,3 @@ axios.get(`${hostBroker}/${route}`, { auth })
     }).catch(e =>{
         console.log(e);
     })
-
-
-
-
-
-
-
