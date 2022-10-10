@@ -1,0 +1,21 @@
+version: "3.3"
+
+services:
+  db-api:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: managment_channels
+      POSTGRES_USER: desarrollo
+      POSTGRES_PASSWORD: wchannel2020
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@mail.com
+      - PGADMIN_DEFAULT_PASSWORD=root
+    ports:
+      - 3030:80
