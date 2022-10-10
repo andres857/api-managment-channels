@@ -25,8 +25,6 @@ function newStreamingPlayers(data){
                 })
                 return playersfound
             }
-        }).then((players)=>{
-            
         })
 }
 

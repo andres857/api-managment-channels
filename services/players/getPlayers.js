@@ -2,6 +2,7 @@ const axios = require('axios')
 const { hostBroker , route , auth } = require('../../config')
 
 function getPlayersByClient(client){
+    console.log(`service ${client}`);
     return new Promise((resolve) => {
         axios.get(`${hostBroker}/${route}`, { auth })
         .then(function(response){
@@ -10,7 +11,14 @@ function getPlayersByClient(client){
                 const players = response.data.data
                 players.find( player => {
                     if ( client === player.username ){
-                        playersfound.push(player)
+                        playersfound.push({
+                            "clientid": player.clientid,
+                            "username": player.username,
+                            "connected_at": player.connected_at,
+                            "subscriptions_cnt": player.subscriptions_cnt,
+                            "connected": player.connected,
+                            "ip_address": player.ip_address
+                        })
                     }
                 });
                 resolve(playersfound);
