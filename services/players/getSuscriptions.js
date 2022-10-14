@@ -1,17 +1,16 @@
 const axios = require('axios')
 const { hostBroker , route , auth } = require('../../config')
-const {playersmocks} = require ('../../mock')
 
-function getPlayersByClient(client){
-    console.log(`service ${client}`);
+function getSubscriptionByClient(client){
     return new Promise((resolve) => {
         axios.get(`${hostBroker}/${route}`, { auth })
         .then(function(response){
             if(response.status === 200){
+                let playersfound = []
                 const players = response.data.data
                 players.find( player => {
                     if ( client === player.username ){
-                        playersmocks.push({
+                        playersfound.push({
                             "clientid": player.clientid,
                             "username": player.username,
                             "connected_at": player.connected_at,
@@ -21,7 +20,7 @@ function getPlayersByClient(client){
                         })
                     }
                 });
-                resolve(playersmocks);
+                resolve(playersfound);
             }else{
                 console.log(response.status);
             }
@@ -32,7 +31,7 @@ function getPlayersByClient(client){
 }
 
 module.exports = {
-    getPlayersByClient,
+    getSubscriptionByClient,
 }
 
 
