@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 var cors = require('cors');
 const { getPlayersByClient } = require('./services/players/getPlayers')
-const { newStreamingPlayers } = require('./services/players/globalActions')
+const { newStreamingPlayers, service } = require('./services/players/globalActions')
 const port = 3000
 
 app.use( cors() )
@@ -26,14 +26,12 @@ app.get('/v1/streaming/wc/players', (req, res) => {
         }).catch(e=>{console.log(e);})
 })
 
-// actions globals
+// request to players
 app.post('/v1/streaming/wc/players',(req, res)=>{
-    const player_id = req.query.id
-    const actions = req.body
-    newStreamingPlayers(actions)
+    const payload = req.body
+    service(payload)
     res.json({
-        player_id,
-        actions
+        client:payload,
     })
 })
 

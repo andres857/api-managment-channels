@@ -26,12 +26,12 @@ function restartPlayers(data){
 }
 
 function newStreamingPlayers(data){ 
-    const { client, newstreaming } = data
+    const { client, streaming } = data
     const topic = `${client.name}/players`
-
+    console.log(streaming);
     axios.post(`${hostBroker}/api/v4/mqtt/publish`, {
         "topic": topic,
-        "payload": newstreaming,
+        "payload": streaming,
         "qos":0,
         "retain":false,
         },{ auth }).then((response) =>{
@@ -47,7 +47,18 @@ function newStreamingPlayers(data){
     }))
 }
 
+function service(data){
+    if (data.hasOwnProperty('streaming')){
+        console.log('llamar a la funcion streaming');
+        newStreamingPlayers(data)
+    }else if(data.hasOwnProperty('restart') && data.restart){
+        restartPlayers(data)
+    }else{
+        console.log('Dont anything');
+    }
+}
+
 module.exports = {
     newStreamingPlayers,
-    restartPlayers
+    restartPlayers,service
 }
