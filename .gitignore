@@ -1,3 +1,4 @@
 node_modules
 .env
 postgres_data
+package-lock.json
